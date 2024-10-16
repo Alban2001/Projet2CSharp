@@ -3,6 +3,7 @@
     public interface IProductRepository
     {
         Product[] GetAllProducts();
+        Product GetProductById(int id);
 
         void UpdateProductStocks(int productId, int quantityToRemove);
     }

@@ -39,6 +39,14 @@ namespace P2FixAnAppDotNetCode.Models.Repositories
         }
 
         /// <summary>
+        /// Get a product by its id
+        /// </summary>
+        public Product GetProductById(int id)
+        {
+            return _products.First(p => p.Id == id);
+        }
+
+        /// <summary>
         /// Update the stock of a product in the inventory by its id
         /// </summary>
         public void UpdateProductStocks(int productId, int quantityToRemove)
