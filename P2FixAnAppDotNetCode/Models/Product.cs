@@ -2,7 +2,7 @@
 {
   public class Product
   {
-      public Product(int id, int stock, double price, string name, string description)
+        public Product(int id, int stock, double price, string name, string description)
     {
       Id = id;
       Stock = stock;

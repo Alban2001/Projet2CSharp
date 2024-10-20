@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace P2FixAnAppDotNetCode.Models
@@ -28,7 +29,18 @@ namespace P2FixAnAppDotNetCode.Models
         /// </summary>//
         public void AddItem(Product product, int quantity)
         {
-            GetCartLineList().Add(new CartLine() { Product = product, Quantity = quantity });
+            // Selection de l'index de la ligne du panier en fonction du produit
+            int index = GetCartLineList().FindIndex(l => l.Product.Id == product.Id);
+
+            // Si le produit existe déja dans les lignes de Cart
+            if (FindProductInCartLines(product.Id) is Product)
+            {
+                GetCartLineByIndex(index).Quantity = GetCartLineByIndex(index).Quantity + 1;
+            }
+            else
+            {
+                GetCartLineList().Add(new CartLine() { Product = product, Quantity = quantity });
+            }
         }
 
         /// <summary>
@@ -43,7 +55,7 @@ namespace P2FixAnAppDotNetCode.Models
         public double GetTotalValue()
         {
             double somme = 0;
-            foreach(CartLine Line in Lines)
+            foreach (CartLine Line in Lines)
             {
                 somme = somme + (Line.Product.Price * Line.Quantity);
             }
@@ -68,7 +80,13 @@ namespace P2FixAnAppDotNetCode.Models
         /// </summary>
         public Product FindProductInCartLines(int productId)
         {
-            // TODO implement the method
+            foreach (CartLine Line in Lines)
+            {
+                if (Line.Product.Id == productId)
+                {
+                    return Line.Product;
+                }
+            }
             return null;
         }
 
