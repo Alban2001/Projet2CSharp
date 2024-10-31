@@ -32,10 +32,10 @@ namespace P2FixAnAppDotNetCode.Models.Repositories
         /// <summary>
         /// Get all products from the inventory
         /// </summary>
-        public Product[] GetAllProducts()
+        public List<Product> GetAllProducts()
         {
             List<Product> list = _products.Where(p => p.Stock > 0).OrderBy(p => p.Name).ToList();
-            return list.ToArray();
+            return list;
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace P2FixAnAppDotNetCode.Models.Repositories
         /// </summary>
         public void UpdateProductStocks(int productId, int quantityToRemove)
         {
-            Product product = _products.First(p => p.Id == productId);
+            Product product = GetProductById(productId);
             product.Stock = product.Stock - quantityToRemove;
 
             if (product.Stock == 0)
