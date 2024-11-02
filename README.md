@@ -13,6 +13,7 @@
 - [Contexte](#contexte)
 - [Installation](#installation)
   - [Télécharger le projet](#télécharger-le-projet)
+  - [Lancer le projet](#lancer-le-projet)
 
 ## Contexte
 
